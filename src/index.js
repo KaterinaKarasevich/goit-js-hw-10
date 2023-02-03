@@ -7,7 +7,7 @@ import debounce from 'lodash.debounce';
 const countriesAPI = new CountriesAPI();
 console.log(countriesAPI)
 
-const DEBOUNCE_DELAY = 3000;
+const DEBOUNCE_DELAY = 1000;
 
 const textInput = document.querySelector("#search-box")
 const countryInfo = document.querySelector(".country-0info")
@@ -18,17 +18,20 @@ console.log(countryList)
 textInput.addEventListener("input", debounce(getCountryName, DEBOUNCE_DELAY));
 
 function getCountryName(e) {
-  countriesAPI.searchQuery = e.target.value.trim()
-  if (countriesAPI.searchQuery = "") {
+  const inputValue = e.target.value.trim();
+  
+  if (!inputValue) {
       countryInfo.innerHTML = ""
       countryList.innerHTML = ""
     return
   }
 
+  countriesAPI.searchQuery = inputValue;
+  
   countriesAPI
-    .fetchCountries(countriesAPI.searchQuery)
-    
-    //.then(({ countries }) => console.log (countries))
+    .fetchCountries()
+ 
+    .then(({ countries }) => console.log (countries))
     .then(getCountryNumber)
     .catch(error => {
       Notiflix.Notify.failure('Oops, there is no country with that name');

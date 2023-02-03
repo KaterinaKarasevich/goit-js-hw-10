@@ -1,7 +1,7 @@
 
 export default class CountriesAPI {
-    constructor(searchQuery) {
-        this.searchQuery = searchQuery;
+    constructor() {
+        this.searchQuery = "";
     }
     
     fetchCountries() {
@@ -13,7 +13,7 @@ export default class CountriesAPI {
         }
          response.json();
             })
-        //.then(response => response.json())
+       
       .then(countries => {
         return countries;
       });
